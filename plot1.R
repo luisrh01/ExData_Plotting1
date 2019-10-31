@@ -7,3 +7,13 @@
 # Create a separate R code file (\color{red}{\verb|plot1.R|}plot1.R, \color{red}{\verb|plot2.R|}plot2.R, etc.) that constructs the corresponding plot, i.e. code in \color{red}{\verb|plot1.R|}plot1.R constructs the \color{red}{\verb|plot1.png|}plot1.png plot. Your code file should include code for reading the data so that the plot can be fully reproduced. You must also include the code that creates the PNG file.
 # Add the PNG file and R code file to the top-level folder of your git repository (no need for separate sub-folders)
 
+# Coursera EDA 
+# download file and unzip
+download <- download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",destfile = "power.zip")
+unzip("power.zip")
+unlink("power.zip")
+
+power <- read.table("household_power_consumption.txt", sep = ";", header = TRUE, na.strings = "?")
+power$Date <- as.Date(power$Date, "%d/%m/%Y")
+power$dt <- strptime(paste(power$Date, power$Time), "%d/%m/%Y %H:%M:%S")
+power_sub <- subset(power, Date >= as.Date("2007-02-01") & Date <= as.Date("2007-02-02"))
